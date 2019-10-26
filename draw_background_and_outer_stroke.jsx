@@ -1,5 +1,6 @@
-#include 'utils.jsx';
-#include 'colors.jsx'
+#include 'utils/layer_utils.jsx';
+#include 'utils/path_utils.jsx';
+#include 'utils/colors.jsx'
 
 var docRef = app.activeDocument;
 

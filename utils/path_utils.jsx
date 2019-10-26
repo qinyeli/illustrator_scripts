@@ -1,22 +1,3 @@
-var hideAllLayers = function() {
-  for (var i = 0; i < docRef.layers.length; i++) {
-    docRef.layers[i].visible = false;
-  }
-}
-
-// Return all existing layers as a list,
-// excluding layers starting with + or -
-var existingLayers = function() {
-  var result = []
-  for (var i = 0; i < docRef.layers.length; i++) {
-    var layer = docRef.layers[i];
-    if (!(layer.name.match(/^\+/) || layer.name.match(/^\-/))) {
-      result.push(layer)
-    }
-  }
-  return result
-}
-
 // Copy all paths in fromLayer to toLayer.
 var copyAllPaths = function(fromLayer, toLayer, callback) {
   fromLayer.visible = true;
