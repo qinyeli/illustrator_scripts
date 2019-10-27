@@ -6,7 +6,7 @@ var docRef = app.activeDocument;
 var pngExporter = {
   init: function() {
     exportImpl.setNumToExport(docRef.artboards.length);
-    exportImpl.openExportSettingsWindow(this.runExport);
+    exportImpl.openExportSettingsWindow(this.runExport, 'Artboards');
   },
 
   runExport: function() {

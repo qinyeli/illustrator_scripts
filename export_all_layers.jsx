@@ -6,7 +6,7 @@ var docRef = app.activeDocument;
 var pngExporter = {
   init: function() {
     exportImpl.setNumToExport(numLayersToExport());
-    exportImpl.openExportSettingsWindow(this.runExport);
+    exportImpl.openExportSettingsWindow(this.runExport, 'Layers');
   },
 
   runExport: function() {

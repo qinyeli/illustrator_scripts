@@ -6,28 +6,35 @@ var exportImpl = {
     prefix: '',
     basePath: '~/Desktop',
     transparency: true,
+
     png8: false,
     png24: true,
+    gif: false,
   },
-  export_function: null,
 
   numToExport: 0,
   numExported: 0,
+
+  exportType: null,
+  exportOptions: null,
 
   setNumToExport: function(numToExport) {
     this.numToExport = numToExport;
   },
 
-  openExportSettingsWindow: function(callback) {
-    this.callback = callback;
-    this.window = showExportSettingsDialog(this);
+  openExportSettingsWindow: function(callback, exporterType) {
+    this.callback = function() {
+      this.setUpForExport();
+      callback();
+    }
+    this.window = new Window('dialog', 'Export All ' + exporterType);
+    setUpExportSettingsDialog(this);
   },
 
   exportToFile: function(filename) {
-  	var settings = this.exportSettings;
-    var destFile = new File(settings.basePath + "/" + settings.prefix
-        + filename + ".png");
-    docRef.exportFile(destFile, this.getExportType(), this.getExportOptions());
+    var settings = this.exportSettings;
+    var destFile = new File(settings.basePath + "/" + settings.prefix + filename);
+    docRef.exportFile(destFile, this.exportType, this.exportOptions);
 
     // Update progress window.
     this.numExported++;
@@ -41,23 +48,22 @@ var exportImpl = {
     this.window.close();
   },
 
-  //---------------------------------------------------------------------------
-  getExportOptions: function() {
-    if (this.options == null) {
-      var settings = this.exportSettings;
-      this.options = settings.png8 ? new ExportOptionsPNG8() : new ExportOptionsPNG24();
-      this.options.antiAliasing = true;
-      this.options.transparency = settings.transparency;
-      this.options.artBoardClipping = true;
+  setUpForExport: function() {
+    var settings = this.exportSettings;
+    if (settings.png8) {
+      this.exportType = ExportType.PNG8;
+      this.exportOptions = new ExportOptionsPNG8();
+    } else if (settings.png24) {
+      this.exportType = ExportType.PNG24;
+      this.exportOptions = new ExportOptionsPNG24();
+    } else if (settings.gif) {
+      this.exportType = ExportType.GIF;
+      this.exportOptions = new ExportOptionsGIF();
+    } else {
+      alert('Error: export type not correctly set.');
     }
-    return this.options;
+    this.exportOptions.antiAliasing = true;
+    this.exportOptions.transparency = settings.transparency;
+    this.exportOptions.artBoardClipping = true;
   },
-
-  getExportType: function() {
-    if (this.exportType == null) {
-      var settings = this.exportSettings;
-      this.exportType = settings.png8 ? ExportType.PNG8 : ExportType.PNG24;
-    }
-    return this.exportType;
-  }
 }

@@ -1,6 +1,4 @@
-var showExportSettingsDialog = function(exporter) {
-  exporter.window = new Window('dialog', 'Export Layers as PNG');
-
+var setUpExportSettingsDialog = function(exporter) {
   var window = exporter.window;
   var settings = exporter.exportSettings;
   var numToExport = exporter.numToExport;
@@ -42,6 +40,8 @@ var showExportSettingsDialog = function(exporter) {
   transPnl.png8Btn.value = settings.png8;
   transPnl.png24Btn = transPnl.add('radiobutton', undefined, 'PNG 24');
   transPnl.png24Btn.value = settings.png24;
+  transPnl.gifBtn = transPnl.add('radiobutton', undefined, 'GIF');
+  transPnl.gifBtn.value = settings.gif;
   window.transPnl = transPnl;
 
   // For showing the progress
@@ -71,9 +71,9 @@ var showExportSettingsDialog = function(exporter) {
     settings.transparency = exporter.window.transPnl.transparentChk.value;
     settings.png8 = exporter.window.transPnl.png8Btn.value;
     settings.png24 = exporter.window.transPnl.png24Btn.value;
+    settings.gif = exporter.window.transPnl.gifBtn.value;
     exporter.callback();
   };
 
   window.show();
-  return window;
 }
