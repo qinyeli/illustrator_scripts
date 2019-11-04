@@ -56,9 +56,13 @@ var exportImpl = {
     } else if (settings.png24) {
       this.exportType = ExportType.PNG24;
       this.exportOptions = new ExportOptionsPNG24();
+      this.exportOptions.horizontalScale = 25;
+      this.exportOptions.verticalScale = 25;
     } else if (settings.gif) {
       this.exportType = ExportType.GIF;
       this.exportOptions = new ExportOptionsGIF();
+      this.exportOptions.horizontalScale = 50;
+      this.exportOptions.verticalScale = 50;
     } else {
       alert('Error: export type not correctly set.');
     }

@@ -11,17 +11,23 @@ var outerStrokeWidth = 7;
 // current document, fills the background with white and adds a white outer
 // stroke to it. The assumption is that all layers contain only unexpanded
 // line strokes.
+//
+// Note: The script expects that each artboard has only one layer, and each
+// layer is fully contained in a single artboard. It also expects that the
+// layers and the artboards are in corresponding order.
 var drawBackgroundAndOuterStroke = {
   init: function() {
     hideAllLayers();
     var oldLayers = existingLayers()
-
-    var r = docRef.artboards[docRef.artboards.getActiveArtboardIndex()].artboardRect;
+    var newLayers = []
 
     for (var i = 0; i < oldLayers.length; i++) {
+      docRef.artboards.setActiveArtboardIndex(i);
+
       var oldLayer = oldLayers[i];
       var newLayer = docRef.layers.add();
       newLayer.visible = true;
+      newLayers.push(newLayer);
 
       //-----------------------------------------------------------------------
       copyAllPaths(oldLayer, newLayer, function(path) {
@@ -45,24 +51,33 @@ var drawBackgroundAndOuterStroke = {
         path.strokeWidth = lineStrokeWidth;
       });
 
-      var rec = newLayer.pathItems.rectangle(r[1], r[0], r[2] - r[0], r[1] - r[3]);
+      var r = docRef.artboards[i].artboardRect;
+      var rec = newLayer.pathItems.rectangle(
+          /*top=*/r[1],
+          /*left=*/r[0],
+          /*width=*/r[2] - r[0],
+          /*height=*/r[1] - r[3]);
       rec.move(newLayer, ElementPlacement.PLACEATEND);
       rec.fillColor = colorWhite;
 
       this.mergeAndExpand();
-      this.deleteBackground(newLayer);
+      this.deleteBackground(newLayer, r);
 
       //-----------------------------------------------------------------------
       
       app.executeMenuCommand('showAll');
       newLayer.visible = false;
     }
+
+    for (var i = 0; i < newLayers.length; i++) {
+      newLayers[i].visible = true;
+    }
   },
 
-  deleteBackground: function(layer) {
+  deleteBackground: function(layer, r) {
     for (var j = 0; j < layer.compoundPathItems.length; j++) {
       var compoundPath = layer.compoundPathItems[j];
-      if (compoundPath.position[0] == 0 && compoundPath.position[1] == 0) {
+      if (compoundPath.position[0] == r[0] && compoundPath.position[1] == r[1]) {
         compoundPath.remove();
         break;
       }
