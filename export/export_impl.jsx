@@ -27,7 +27,7 @@ var exportImpl = {
       this.setUpForExport();
       callback();
     }
-    this.window = new Window('dialog', 'Export All ' + exporterType);
+    this.window = new Window('dialog', 'Export ' + exporterType);
     setUpExportSettingsDialog(this);
   },
 
