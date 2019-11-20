@@ -49,6 +49,10 @@ var exportImpl = {
   },
 
   setUpForExport: function() {
+    var r = docRef.artboards[0].artboardRect;
+    var width = r[2] - r[0]
+    var height = r[1] - r[3]
+
     var settings = this.exportSettings;
     if (settings.png8) {
       this.exportType = ExportType.PNG8;
@@ -56,13 +60,13 @@ var exportImpl = {
     } else if (settings.png24) {
       this.exportType = ExportType.PNG24;
       this.exportOptions = new ExportOptionsPNG24();
-      this.exportOptions.horizontalScale = 25;
-      this.exportOptions.verticalScale = 25;
+      this.exportOptions.horizontalScale = 100 * 120 / width;
+      this.exportOptions.verticalScale = 100 * 120 / height;;
     } else if (settings.gif) {
       this.exportType = ExportType.GIF;
       this.exportOptions = new ExportOptionsGIF();
-      this.exportOptions.horizontalScale = 50;
-      this.exportOptions.verticalScale = 50;
+      this.exportOptions.horizontalScale = 100 * 240 / width;
+      this.exportOptions.verticalScale = 100 * 240 / height;
     } else {
       alert('Error: export type not correctly set.');
     }
