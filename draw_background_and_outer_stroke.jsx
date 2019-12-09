@@ -5,7 +5,7 @@
 var docRef = app.activeDocument;
 
 var lineStrokeWidth = 2;
-var outerStrokeWidth = 7;
+var outerStrokeWidth = 15;
 
 // drawBackgroundAndOuterStroke.init() makes a copy of all layers in the
 // current document, fills the background with white and adds a white outer
