@@ -11,6 +11,7 @@ var pngExporter = {
 
   runExport: function() {
     showAllLayers();
+    var artboard = docRef.artboards[docRef.artboards.getActiveArtboardIndex()];
     exportImpl.exportToFile(artboard.name);
     exportImpl.closeWindow();
   },

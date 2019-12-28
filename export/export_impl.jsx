@@ -49,7 +49,8 @@ var exportImpl = {
   },
 
   setUpForExport: function() {
-    var r = docRef.artboards[0].artboardRect;
+    var activeArtboardIndex = docRef.artboards.getActiveArtboardIndex();
+    var r = docRef.artboards[activeArtboardIndex].artboardRect;
     var width = r[2] - r[0]
     var height = r[1] - r[3]
 
