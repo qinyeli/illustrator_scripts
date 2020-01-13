@@ -60,9 +60,8 @@ You might quickly notice that these scripts are not self-contained when you see 
 
 ## Bonus!
 
-My WeChat stickers will be available on WeChat sticker store Dec. 25, 2019 CST. Yes it's the Chrismtas day! You will be able to [download it here](https://w.url.cn/s/AqNYfCw).
-
-Come tell me what you think of it :-)
+You can download my WeChat sticker [here](https://w.url.cn/s/AqNYfCw)!
+ Come tell me what you think of it :-)
 
 <img src="images/qrcode.bmp" width="300px">
 
